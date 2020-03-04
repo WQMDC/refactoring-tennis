@@ -20,7 +20,7 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        if (m_score1 == m_score2) {
+        if (isEqualScore()) {
             switch (m_score1) {
                 case 0:
                     score = "Love-All";
@@ -36,13 +36,16 @@ public class TennisGame1 implements TennisGame {
                     break;
 
             }
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
+        } else if (isMoreThanForty()) {
             int minusResult = m_score1 - m_score2;
             if (minusResult == 1) {
                 score = "Advantage player1";
             } else if (minusResult != -1) {
-                if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
+                if (minusResult >= 2) {
+                    score = "Win for player1";
+                } else {
+                    score = "Win for player2";
+                }
             } else {
                 score = "Advantage player2";
             }
@@ -72,5 +75,13 @@ public class TennisGame1 implements TennisGame {
             }
         }
         return score;
+    }
+
+    private boolean isMoreThanForty() {
+        return m_score1 >= 4 || m_score2 >= 4;
+    }
+
+    private boolean isEqualScore() {
+        return m_score1 == m_score2;
     }
 }
