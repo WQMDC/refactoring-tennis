@@ -23,28 +23,26 @@ public class TennisGame1 implements TennisGame {
         if (isEqualScore()) {
             score = getEqualScore();
         } else if (isMoreThanForty()) {
-            score = getWinner();
+            score = getMoreThanFortyScore();
         } else {
             score = getTempScore(m_score1) + '-' + getTempScore(m_score2);
         }
         return score;
     }
 
-    private String getWinner() {
+    private String getMoreThanFortyScore() {
         String score;
-        int minusResult = m_score1 - m_score2;
-        if (minusResult == 1) {
-            score = "Advantage player1";
-        } else if (minusResult != -1) {
-            if (minusResult >= 2) {
-                score = "Win for player1";
-            } else {
-                score = "Win for player2";
-            }
-        } else {
-            score = "Advantage player2";
-        }
+        int minusResult = Math.abs(m_score1 - m_score2);
+        score = minusResult > 1 ? getWinner() : getAdvantage();
         return score;
+    }
+
+    private String getAdvantage() {
+        return m_score1 - m_score2 > 0 ? "Advantage player1" : "Advantage player2";
+    }
+
+    private String getWinner() {
+        return m_score1 - m_score2 > 0 ? "Win for player1" : "Win for player2";
     }
 
     private String getTempScore(int tempScore) {
